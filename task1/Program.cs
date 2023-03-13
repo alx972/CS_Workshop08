@@ -30,7 +30,7 @@ bool CheckMatrixParams(int row, int col) // проверка правильно�
     {
         row = InputInt("Введите количество строк в матрице");
         col = InputInt("Введите количество столбцов в матрице");
-    } while (CheckMatrixParams(row, col));
+    } while (!CheckMatrixParams(row, col));
     (int row, int col, int min, int max) result = (
         row,
         col,
@@ -58,15 +58,45 @@ void PrintMatrix(int[,] matrix)
 {
     for (int i = 0; i < matrix.GetLength(0); i++)
     {
-        for (int j = 0; i < matrix.GetLength(1); j++)
+        for (int j = 0; j < matrix.GetLength(1); j++)
         {
-            System.Console.Write($"{matrix[i, j], 5} ");
+            Console.Write($"{matrix[i, j], 5} ");
         }
         Console.WriteLine();
+    }
+}
+
+void Swap(int[,] matrix, int row, int i, int j) // обмен элементов местами
+{
+    int temp = matrix[row, i];
+    matrix[row, i] = matrix[row, j];
+    matrix[row, j] = temp;
+}
+
+void SortMatrixDesc(int[,] matrix)
+{
+    for (int row = 0; row < matrix.GetLength(0); row++) // перебор строк матрицы
+    {
+        for (int col1 = 0; col1 < matrix.GetLength(1) - 1; col1++) // нахождение индекса с минимальным эначением элемента 
+        {
+            int max = col1; 
+            for (int col2 = col1 + 1; col2 < matrix.GetLength(1); col2++) 
+            {
+                if (matrix[row, col2] > matrix[row, max])
+                {
+                    max = col2;
+                }
+            }
+            Swap(matrix, row, max, col1); 
+        }
     }
 }
 
 (int rows, int columns, int minValue, int maxValue) matrixParams = SetMatrixParams();
 int[,] matrix = new int[matrixParams.rows, matrixParams.columns];
 matrix = GenerateMatrix(matrixParams);
+Console.WriteLine("Исходная матрица");
+PrintMatrix(matrix);
+SortMatrixDesc(matrix);
+System.Console.WriteLine("Отсортированная матрица");
 PrintMatrix(matrix);
