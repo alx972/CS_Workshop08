@@ -1,6 +1,6 @@
 ﻿// Задайте двумерный массив. Напишите программу, которая упорядочивает по убыванию элементы каждой строки двумерного массива.
 
-int InputInt (string msg)
+int InputInt (string msg) // ввод с консоли целого числа
 {
     Console.Write($"{msg} ->");
     int result;
@@ -40,7 +40,7 @@ bool CheckMatrixParams(int row, int col) // проверка правильно�
     return result;
 }
 
-int[,] GenerateMatrix((int rows, int cols, int min, int max) param)
+int[,] GenerateMatrix((int rows, int cols, int min, int max) param) // заполнение матрицы случайными числами
 {
     int[,] result = new int[param.rows, param.cols];
     Random rnd = new Random();
@@ -54,7 +54,7 @@ int[,] GenerateMatrix((int rows, int cols, int min, int max) param)
     return result;
 }
 
-void PrintMatrix(int[,] matrix)
+void PrintMatrix(int[,] matrix) // вывод матрицы на экран
 {
     for (int i = 0; i < matrix.GetLength(0); i++)
     {
@@ -73,7 +73,7 @@ void Swap(int[,] matrix, int row, int i, int j) // обмен элементов
     matrix[row, j] = temp;
 }
 
-void SortMatrixDesc(int[,] matrix)
+void SortMatrixDesc(int[,] matrix) // обратная сортировка матрицы методом выборки 
 {
     for (int row = 0; row < matrix.GetLength(0); row++) // перебор строк матрицы
     {
